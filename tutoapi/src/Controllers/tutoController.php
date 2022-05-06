@@ -52,4 +52,33 @@ class tutoController extends abstractController
 
             return $this->jsonResponse($tuto, 200);
         }
+
+        public function patch($id)
+
+        {
+            $manager = new TutoManager();
+            $tuto = $manager->find($id);
+            parse_str(file_get_contents('php://input'), $_PATCH);
+            foreach($_PATCH as $key=>$value){
+                if ($key=='title'){
+                    $tuto->setTitle($_PATCH['title']);
+                }
+                if ($key=='description'){
+                    $tuto->setDescription($_PATCH['description']);
+                }
+            }
+
+            $tuto = $manager->update($tuto);
+            return $this->jsonResponse($tuto, 200);
+            die();
+        }
+
+        public function supp($id){
+
+            $manager = new TutoManager();
+            $tuto = $manager->find($id);
+            $manager->delete($tuto);
+            return $this->jsonResponse($tuto, 200);
+            die();
+        }
 }

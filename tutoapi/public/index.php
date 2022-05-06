@@ -29,18 +29,20 @@ switch(true) {
 
         break;
 
+    case preg_match('#^tutos$#', $uri) && $method == 'POST':
+
+      $controller = new tutoController();
+
+      return $controller->add();
+
+      break;
+
     default:
 
     http_response_code(404);
 
     echo json_encode('erreur 404');
 
-    case preg_match('#^tutos$#', $uri) && $method == 'POST':
 
-                $controller = new tutoController();
-
-                return $controller->add();
-
-                break;
 
 }
